@@ -37,10 +37,20 @@ _start:
 mov rax, 1 ;syscall WRITE
 mov rdi, 1 ;we write "1" for the STDOUT file descriptor 
 mov rsi, string ;find the address of "string"
-mov rdx, 5 ;tell the syscall handler how long the thing we want to print is
+
+;mov rdx, 5 ;(old) tell the syscall handler how long the thing we want to print is
+
+mov rdx, strlen ;move into RDX the value of "strlen", 
+;which will the the length of the string we are trying to print
 
 syscall ;notifies the syscall handler to execute our command
 
 section .data
 
-string: db 'H', 'e', 'l', 'l', 'o'
+;string: db 'H', 'e', 'l', 'l', 'o'
+
+;define a double byte under "string" with value "Hello, World!"
+string: db "Hello, World!"
+
+;calculate lenth of "string"
+strlen equ $ - string
