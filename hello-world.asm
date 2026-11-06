@@ -41,13 +41,21 @@ mov rsi, string ;find the address of "string"
 ;mov rdx, 5 ;(old) tell the syscall handler how long the thing we want to print is
 
 mov rdx, strlen ;move into RDX the value of "strlen", 
-;which will the the length of the string we are trying to print
+;which will be the length of the string we are trying to print
 
 syscall ;notifies the syscall handler to execute our command
 
+
+mov rax, 60 ;move into RAX the value of 60, which is SYS_EXIT
+;mov rdi, 99 ;this is for the error code of SYS_EXIT. this can be any value.
+syscall  ;notify the syscall handler of our pending command
+
+;the above now exits without any errors.
+
+
 section .data
 
-;string: db 'H', 'e', 'l', 'l', 'o'
+;string: db 'H', 'e', 'l', 'l', 'o' ; << old
 
 ;define a double byte under "string" with value "Hello, World!"
 string: db "Hello, World!"
